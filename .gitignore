@@ -1,0 +1,12 @@
+.env
+**/__pycache__/
+.pytest_cache/
+.venv/
+node_modules/
+frontend/dist/
+results/
+backend/results/
+backend/uploads/
+holoassist_raw/
+media/uploads_ready/holo_*.mp4
+.DS_Store

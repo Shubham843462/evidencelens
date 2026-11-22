@@ -1,0 +1,41 @@
+[
+  {
+    "id": "case_01", "title": "Choosing a board hole", "task_name": "Board assembly",
+    "description": "Illustrated scene with two holes. A simulated AI may confuse incorrect screw type with incorrect placement.",
+    "source": "synthetic", "source_note": "Original illustrated clip; NOT a HoloAssist sample", "license": "Original demo generated for this starter",
+    "original_session_id": null, "source_start": 0, "cutoff": 11.75, "clip_url": "/media/clips/case_01.mp4",
+    "context": "Assembly guide says place the screw into marked hole B. Inspect the screw placement in the frames.",
+    "prior_transcript": "2s: Instruction marker identifies hole B as the target. No other speech is available.",
+    "evidence": [
+      {"id":"E01", "time":2, "label":"Earlier guide marker", "observation":"The diagram labels holes A and B; B is the target.", "frame_url":"/media/frames/case_01/E01.jpg"},
+      {"id":"E02", "time":6, "label":"Screw approaches board", "observation":"The screw is moving toward hole A.", "frame_url":"/media/frames/case_01/E02.jpg"},
+      {"id":"E03", "time":10, "label":"Final observed placement", "observation":"The screw appears at hole A; screw type is not established.", "frame_url":"/media/frames/case_01/E03.jpg"}
+    ]
+  },
+  {
+    "id": "case_02", "title": "Checking a bracket's orientation", "task_name": "Bracket orientation",
+    "description": "Illustrated bracket arrow becomes reversed, making a correct diagnosis inspectable.",
+    "source": "synthetic", "source_note": "Original illustrated clip; NOT a HoloAssist sample", "license": "Original demo generated for this starter",
+    "original_session_id": null, "source_start": 0, "cutoff": 11.75, "clip_url": "/media/clips/case_02.mp4",
+    "context": "The guide marker indicates that the bracket arrow should point right. Inspect the inserted bracket arrow in the frames.",
+    "prior_transcript": "2s: Guide marker: arrow should point right.",
+    "evidence": [
+      {"id":"E01", "time":2, "label":"Orientation instruction", "observation":"The guide arrow points right.", "frame_url":"/media/frames/case_02/E01.jpg"},
+      {"id":"E02", "time":6, "label":"Observed orientation", "observation":"The inserted bracket arrow points left.", "frame_url":"/media/frames/case_02/E02.jpg"},
+      {"id":"E03", "time":10, "label":"Later inspection", "observation":"The installed bracket still points left.", "frame_url":"/media/frames/case_02/E03.jpg"}
+    ]
+  },
+  {
+    "id": "case_03", "title": "Inspecting an obstructed component", "task_name": "Occluded component",
+    "description": "Illustrated camera view cannot reveal a component's exact state, demonstrating abstention.",
+    "source": "synthetic", "source_note": "Original illustrated clip; NOT a HoloAssist sample", "license": "Original demo generated for this starter",
+    "original_session_id": null, "source_start": 0, "cutoff": 11.75, "clip_url": "/media/clips/case_03.mp4",
+    "context": "Inspect the component state and determine whether the viewpoint is sufficient.",
+    "prior_transcript": "No usable instruction transcript available.",
+    "evidence": [
+      {"id":"E01", "time":2, "label":"Partial view", "observation":"A foreground obstruction covers the component.", "frame_url":"/media/frames/case_03/E01.jpg"},
+      {"id":"E02", "time":6, "label":"Unclear contact point", "observation":"The object behind the obstruction is not visible.", "frame_url":"/media/frames/case_03/E02.jpg"},
+      {"id":"E03", "time":10, "label":"View still blocked", "observation":"The video never reveals the relevant contact point.", "frame_url":"/media/frames/case_03/E03.jpg"}
+    ]
+  }
+]
