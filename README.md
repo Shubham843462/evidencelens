@@ -77,6 +77,19 @@ an evidence timestamp to seek → seek the player and *Attach current frame* →
 pick the disputed claim, type an objection → *Submit challenge & re-analyze* →
 read the REVISE / UPHOLD / ABSTAIN reassessment.
 
+### Sample clips to try
+
+`media/uploads_ready/` ships three short narrated demo clips (synthetic, built by
+`scripts/make_demo_clip.py`) that exercise each outcome:
+
+| Clip | Try this |
+|---|---|
+| `demo_uphold_bracket.mp4` | Analyze → "possible error" (screw in hole A). Challenge with a wrong objection → **uphold**. |
+| `demo_revise_cable.mp4` | Analyze → "possible error" (bottom bolt loose). Challenge noting the top bolt is also loose → **revise**. |
+| `demo_abstain_occluded.mp4` | Analyze → **insufficient evidence** (contact point hidden). |
+
+Live-model outcomes are not deterministic; re-run Analyze if a result differs.
+
 ## 4. Demo vs live model
 
 Default is `demo`: deterministic, offline, no API key. Its wording is scripted
@@ -88,8 +101,11 @@ For real analysis, edit the project-root `.env`:
 ```dotenv
 EVIDENCELENS_MODE=live
 OPENAI_API_KEY=your_key_here
-OPENAI_MODEL=gpt-4.1-mini
+OPENAI_MODEL=gpt-4.1
 ```
+
+Use any image-capable model available on your account (e.g. `gpt-4.1`,
+`gpt-4o`). If one model hits a rate limit, switch `OPENAI_MODEL` and restart.
 
 Restart the backend. In live mode the sampled JPEG frames, the **pre-cutoff
 spoken transcript** (Whisper), and your task text are sent to the configured
@@ -124,20 +140,36 @@ lists the pre-cutoff speech the model was given; click a line to seek the video.
 `status` may be `possible_error`, `no_error_observed`, or
 `insufficient_evidence`. In the last two the UI does not force a correction.
 
-## 6. Code map
+## 6. Project structure
 
 ```text
-backend/app/main.py        # FastAPI: upload/analyze/challenge + cutoff + validation
-backend/app/video.py       # ffprobe validation, UUID storage, ffmpeg frame sampling
-backend/app/audio.py       # audio extraction + pre-cutoff Whisper transcription
-backend/app/live_model.py  # real multimodal adapter (frames + speech -> grounded JSON)
-backend/app/demo_model.py  # offline deterministic stand-in for UI testing
-backend/app/schemas.py     # Pydantic request/response contracts
-backend/tests/test_api.py  # endpoint tests (demo mode)
-backend/uploads/<id>/      # per-upload video + extracted frames (gitignored)
-frontend/src/App.jsx       # upload-first single-page UI + state machine
-frontend/src/api.js        # fetch helpers incl. multipart upload
-frontend/src/styles.css    # responsive styling
+evidencelens/
+├── backend/
+│   ├── app/
+│   │   ├── main.py          # FastAPI: upload/analyze/challenge + cutoff + validation
+│   │   ├── video.py         # ffprobe validation, UUID storage, ffmpeg frame sampling
+│   │   ├── audio.py         # audio extraction + pre-cutoff Whisper/annotation transcript
+│   │   ├── live_model.py    # real multimodal adapter (frames + speech -> grounded JSON)
+│   │   ├── demo_model.py    # offline deterministic stand-in for UI testing
+│   │   └── schemas.py       # Pydantic request/response contracts
+│   ├── tests/test_api.py    # endpoint tests (demo mode)
+│   ├── uploads/<id>/        # per-upload video + frames (gitignored, created at runtime)
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx          # upload-first single-page UI + state machine
+│   │   ├── api.js           # fetch helpers incl. multipart upload
+│   │   ├── main.jsx
+│   │   └── styles.css
+│   ├── index.html
+│   └── package.json
+├── scripts/
+│   ├── import_video_case.py # trim an authorized dataset clip into a pre-cutoff upload
+│   └── make_demo_clip.py    # generate the narrated synthetic demo clips
+├── media/uploads_ready/     # ready-to-upload sample clips
+├── docs/                    # data-integration + evaluation notes
+├── .env.example
+└── README.md
 ```
 
 ## 7. Storage, privacy, limits
@@ -153,8 +185,8 @@ frontend/src/styles.css    # responsive styling
 ## 8. Not included (by design)
 
 No dataset downloader, webcam/AR pipeline, video embeddings, model fine-tuning,
-or multi-agent framework. The old synthetic cases and `data/` remain only as an
-optional, clearly labeled sample — never the required main flow.
+or multi-agent framework. Any real dataset footage (e.g. HoloAssist) is obtained
+and used locally under its own license; it is not bundled in this repo.
 
 ## 9. Research integrity
 
