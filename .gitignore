@@ -10,3 +10,4 @@ backend/uploads/
 holoassist_raw/
 media/uploads_ready/holo_*.mp4
 .DS_Store
+report/main.pdf
